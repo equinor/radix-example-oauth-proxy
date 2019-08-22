@@ -1,0 +1,44 @@
+version: "3.5"
+
+networks:
+  radix-example-front-proxy:
+    name: radix-example-front-proxy
+
+services:
+  api:
+    build:
+      context: api
+    image: radix-example-front-proxy-api
+    container_name: radix-example-front-proxy-api_container
+    networks:
+      - radix-example-front-proxy
+    ports:
+      - "8002:8002" # For local debug only; not exposed in prod
+
+  frontend:
+    build:
+      context: frontend
+    image: radix-example-front-proxy-frontend
+    container_name: radix-example-front-proxy-frontend_container
+    networks:
+      - radix-example-front-proxy
+    ports:
+      - "8001:8001" # For local debug only; not exposed in prod
+    depends_on:
+      - "api"
+
+  auth:
+    build:
+      context: auth-proxy
+    image: radix-example-front-proxy-auth
+    container_name: radix-example-front-proxy-auth_container
+    environment:
+      - OAUTH2_PROXY_REDIRECT_URL=http://localhost:8000/oauth2/callback
+      - OAUTH2_PROXY_COOKIE_SECURE=false
+      - OAUTH2_PROXY_CLIENT_ID=${OAUTH2_PROXY_CLIENT_ID}
+      - OAUTH2_PROXY_CLIENT_SECRET=${OAUTH2_PROXY_CLIENT_SECRET}
+      - OAUTH2_PROXY_COOKIE_SECRET=${OAUTH2_PROXY_COOKIE_SECRET}
+    networks:
+      - radix-example-front-proxy
+    ports:
+      - "8000:8000" # In prod, this is served on port 443
