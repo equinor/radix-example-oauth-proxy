@@ -7,7 +7,6 @@ spec:
     - name: prod
       build:
         from: master
-    - name: prod
   components:
     - name: auth-proxy
       src: auth-proxy
