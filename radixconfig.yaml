@@ -9,7 +9,7 @@ spec:
         from: master
   components:
     - name: auth-proxy
-      src: auth-proxy
+      image: quay.io/pusher/oauth2_proxy:v4.0.0
       publicPort: http
       secrets:
         - OAUTH2_PROXY_CLIENT_SECRET
@@ -17,6 +17,19 @@ spec:
       ports:
         - name: http
           port: 8000
+      environmentConfig:
+        - environment: prod
+          variables:
+            OAUTH2_PROXY_CLIENT_ID=130124d4-aa0e-439a-90a9-8983f610e594
+            OAUTH2_PROXY_COOKIE_SECURE=false
+            OAUTH2_PROXY_EMAIL_DOMAINS=*
+            OAUTH2_PROXY_HTTP_ADDRESS=http://:8000
+            OAUTH2_PROXY_PASS_ACCESS_TOKEN=true
+            OAUTH2_PROXY_PASS_BASIC_AUTH=false
+            OAUTH2_PROXY_PROVIDER=azure
+            OAUTH2_PROXY_REDIRECT_URL=http://localhost:8000/oauth2/callback
+            OAUTH2_PROXY_SKIP_PROVIDER_BUTTON=true
+            OAUTH2_PROXY_UPSTREAMS=http://frontend:8001
     - name: frontend
       src: frontend
       ports:
