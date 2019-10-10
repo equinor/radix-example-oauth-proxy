@@ -7,6 +7,7 @@ const app = express();
 
 // Generic request handler
 app.get('*', (req, res) => {
+  console.log(`Request received by the API: ${req.method} ${req.originalUrl}`)
   let output = `
     Request received by the API: ${req.method} ${req.originalUrl}
     Headers: ${JSON.stringify(req.headers, null, 2)}
