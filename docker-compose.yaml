@@ -32,12 +32,12 @@ services:
     container_name: radix-example-front-proxy-auth_container
     environment:
       - OAUTH2_PROXY_PROVIDER=oidc # https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
+      - OAUTH2_PROXY_OIDC_ISSUER_URL=https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0
       - OAUTH2_PROXY_CLIENT_ID=${OAUTH2_PROXY_CLIENT_ID}
       - OAUTH2_PROXY_CLIENT_SECRET=${OAUTH2_PROXY_CLIENT_SECRET}
       - OAUTH2_PROXY_COOKIE_SECRET=${OAUTH2_PROXY_COOKIE_SECRET}
-      - OAUTH2_PROXY_SCOPE=openid profile 30bb41bb-be29-4b10-aef7-f759141b9923/user_impersonation email
+      - OAUTH2_PROXY_SCOPE=openid profile 30bb41bb-be29-4b10-aef7-f759141b9923/user_impersonation email # resource client id
       - OAUTH2_PROXY_REDIRECT_URL=http://localhost:8000/oauth2/callback
-      - OAUTH2_PROXY_OIDC_ISSUER_URL=https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0
       - OAUTH2_PROXY_COOKIE_REFRESH=60m
       - OAUTH2_PROXY_COOKIE_SECURE=false
       - OAUTH2_PROXY_EMAIL_DOMAINS=*
