@@ -37,6 +37,7 @@ spec:
           port: 8001
     - name: api
       src: api
+      publicPort: http
       ports:
         - name: http
           port: 8002
