@@ -44,12 +44,12 @@ services:
       - OAUTH2_PROXY_HTTP_ADDRESS=http://:8000
       - OAUTH2_PROXY_UPSTREAMS=http://frontend:8001
       - OAUTH2_PROXY_COOKIE_REFRESH=60m
+      - OAUTH2_PROXY_COOKIE_SECURE=false # only for development
+      - OAUTH2_PROXY_EMAIL_DOMAINS=*
       - OAUTH2_PROXY_PASS_ACCESS_TOKEN=true
       - OAUTH2_PROXY_PASS_BASIC_AUTH=false
       - OAUTH2_PROXY_PASS_USER_HEADERS=false
-      - OAUTH2_PROXY_COOKIE_SECURE=false # only for development
       - OAUTH2_PROXY_SKIP_PROVIDER_BUTTON=true
-      - OAUTH2_PROXY_EMAIL_DOMAINS=*
     networks:
       - radix-example-front-proxy
     ports:

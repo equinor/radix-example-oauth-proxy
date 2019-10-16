@@ -26,13 +26,13 @@ spec:
             OAUTH2_PROXY_SCOPE: "openid profile 30bb41bb-be29-4b10-aef7-f759141b9923/user_impersonation email" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
             OAUTH2_PROXY_REDIRECT_URL: "https://radix-example-front-proxy.app.playground.radix.equinor.com/oauth2/callback"
             OAUTH2_PROXY_HTTP_ADDRESS: "http://:8000"
-            OAUTH2_PROXY_UPSTREAMS: "http://frontend:8001"
-            OAUTH2_PROXY_COOKIE_REFRESH: "60m"
-            OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true"
+            OAUTH2_PROXY_UPSTREAMS: "http://frontend:8001" # where authenticated requests are routed to
+            OAUTH2_PROXY_COOKIE_REFRESH: "60m" # how often should the token be refreshed. Default for azure ad is currently 60m
+            OAUTH2_PROXY_EMAIL_DOMAINS: "*"
+            OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true" # should the access token be passed upstream (to the server hosting frontend component).
             OAUTH2_PROXY_PASS_BASIC_AUTH: "false"
             OAUTH2_PROXY_PASS_USER_HEADERS: "false"
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
-            OAUTH2_PROXY_EMAIL_DOMAINS: "*"
     - name: frontend
       src: frontend
       ports:
