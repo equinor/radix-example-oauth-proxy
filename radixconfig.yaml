@@ -44,9 +44,9 @@ spec:
       ports:
         - name: http
           port: 8002
-      environmentConfig:
+      environmentConfig:  
         - environment: prod
-          variables:
+          variables: # AZURE_AD_PUBLIC_KEY - public key: corresponding private key is used to sign tokens by Azure AD 
             API_RESOURCE_ID: "30bb41bb-be29-4b10-aef7-f759141b9923" # client id for the API. Application exist under Azure Active Directory -> App registration
             AZURE_AD_PUBLIC_KEY: |
               -----BEGIN PUBLIC KEY-----
@@ -57,7 +57,7 @@ spec:
               hTN0InY9Rt9PKUh4cRetg3OeKQ2E8TOVh1nHeTT2HIIYnAgB7ESUA07wYBuvet4U
               GemC2SdfpTSWk2YqzjZONW8p01hJg9x8lcSeyaQVOxTP/SjQoP99la1V8lArF35q
               xQIDAQAB
-              -----END PUBLIC KEY----- # public key: corresponding private key is used to sign tokens by Azure AD 
+              -----END PUBLIC KEY-----
   dnsAppAlias:
     environment: prod
     component: auth-proxy
