@@ -49,15 +49,15 @@ spec:
           variables:
             API_RESOURCE_ID: "30bb41bb-be29-4b10-aef7-f759141b9923" # client id for the API. Application exist under Azure Active Directory -> App registration
             AZURE_AD_PUBLIC_KEY: "|
-              -----BEGIN PUBLIC KEY-----
-              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp2DzxOZiWEHhtVavuwIm
-              ryTRxW4kJ0mbA1lbXon550DUnKDZCNZaztno8HpOl6NSbVbW+QLDz5VOqCn+PDvS
-              IRcw+2hrJPRnCNob4yGEuC7v9dPVpPDFRiUrOcwCbJak6xsK9PEsX8FQ/onFHO6Y
-              JkjsFG8S2nMhgRK+JdURUcuj9paywSBtW9ddeqjQPgCPbZJtk39ReouoBYNm9xiw
-              hTN0InY9Rt9PKUh4cRetg3OeKQ2E8TOVh1nHeTT2HIIYnAgB7ESUA07wYBuvet4U
-              GemC2SdfpTSWk2YqzjZONW8p01hJg9x8lcSeyaQVOxTP/SjQoP99la1V8lArF35q
-              xQIDAQAB
-              -----END PUBLIC KEY-----" # public key: corresponding private key is used to sign tokens by Azure AD 
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp2DzxOZiWEHhtVavuwIm
+ryTRxW4kJ0mbA1lbXon550DUnKDZCNZaztno8HpOl6NSbVbW+QLDz5VOqCn+PDvS
+IRcw+2hrJPRnCNob4yGEuC7v9dPVpPDFRiUrOcwCbJak6xsK9PEsX8FQ/onFHO6Y
+JkjsFG8S2nMhgRK+JdURUcuj9paywSBtW9ddeqjQPgCPbZJtk39ReouoBYNm9xiw
+hTN0InY9Rt9PKUh4cRetg3OeKQ2E8TOVh1nHeTT2HIIYnAgB7ESUA07wYBuvet4U
+GemC2SdfpTSWk2YqzjZONW8p01hJg9x8lcSeyaQVOxTP/SjQoP99la1V8lArF35q
+xQIDAQAB
+-----END PUBLIC KEY-----" # public key: corresponding private key is used to sign tokens by Azure AD 
   dnsAppAlias:
     environment: prod
     component: auth-proxy
