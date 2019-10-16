@@ -10,6 +10,9 @@ services:
       context: api
     image: radix-example-front-proxy-api
     container_name: radix-example-front-proxy-api_container
+    environment:
+      - AZURE_AD_PUBLIC_KEY=${AZURE_AD_PUBLIC_KEY}
+      - API_RESOURCE_ID=${API_RESOURCE_ID}
     networks:
       - radix-example-front-proxy
     ports:
@@ -36,7 +39,7 @@ services:
       - OAUTH2_PROXY_CLIENT_ID=${OAUTH2_PROXY_CLIENT_ID}
       - OAUTH2_PROXY_CLIENT_SECRET=${OAUTH2_PROXY_CLIENT_SECRET}
       - OAUTH2_PROXY_COOKIE_SECRET=${OAUTH2_PROXY_COOKIE_SECRET}
-      - OAUTH2_PROXY_SCOPE=openid profile ${OATUH2_PROXY_RESOURCE_ID}/user_impersonation email # resource client id
+      - OAUTH2_PROXY_SCOPE=openid profile ${API_RESOURCE_ID}/user_impersonation email # resource client id
       - OAUTH2_PROXY_REDIRECT_URL=http://localhost:8000/oauth2/callback
       - OAUTH2_PROXY_HTTP_ADDRESS=http://:8000
       - OAUTH2_PROXY_UPSTREAMS=http://frontend:8001
