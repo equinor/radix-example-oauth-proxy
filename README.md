@@ -1,6 +1,6 @@
 # Radix example: front proxy
 
-This is a sample application that showcases how to use an authentication proxy to provide authentication for a SPA front-end that calls an protected API. Only a users that is granted a specific role (through being part of an AD Groupd) have access to the API. 
+This is a sample application that showcases how to use an authentication proxy to provide authentication for a SPA front-end that calls an protected API. The API is only accessible for users that is granted a specific role (through being part of an AD Group). 
 
 This pattern can be used to wrap existing or new components in an application with a single authentication mechanism. It is an alterntive to implementing authentication directly in client, e.g. using [MSAL](https://github.com/AzureAD/microsoft-authentication-library-for-js). 
 
