@@ -1,11 +1,12 @@
 'use strict';
 
+const fetch = require('node-fetch');
 const express = require('express');
 const PORT = process.env.PORT || 8002;
 const HOST = process.env.HOST || '0.0.0.0';
 const app = express();
 const jwt = require('jsonwebtoken');
-const azureADPublicKey = process.env.AZURE_AD_PUBLIC_KEY.replace(/\\n/g, "\n");
+const azureADPublicKey = [];
 const resourceID = process.env.API_RESOURCE_ID;
 
 // Generic request handler
@@ -24,10 +25,22 @@ app.get('*', (req, res) => {
   res.send(output);
 });
 
+const getADPublicKeys = async url => {
+  try{
+    const response = await fetch(url);
+    const json = await response.json();
+    json.keys.forEach(key => {
+      azureADPublicKey[key.kid] = `-----BEGIN CERTIFICATE-----\n${key.x5c}\n-----END CERTIFICATE-----`;
+    })
+  } catch(error){
+    console.log(error);
+  }
+};
+getADPublicKeys(process.env.AZURE_AD_PUBLIC_KEY_URL)
+
 // Start server
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
-console.log(azureADPublicKey);
 
 /**
  * authorize request
@@ -36,12 +49,16 @@ console.log(azureADPublicKey);
  * returns - isAuthorized = true/false.
  */
 const isAuthorized = (req, roles) => {
-  const token = req.header('authorization').replace("Bearer ", "");
+  let token = req.header('authorization').replace("Bearer ", "");
   let isAuthorized = false;
+
   try {
-    const decodedToken = jwt.verify(token, azureADPublicKey, { audience: resourceID } );
+    const decodedToken = jwt.decode(token, {complete: true});
+    const publicKey = azureADPublicKey[decodedToken.header.kid];
+
+    const validatedToken = jwt.verify(token, publicKey, { audience: resourceID } );
     if (roles && roles.length > 0) {
-      isAuthorized = decodedToken.roles && roles.some(role => decodedToken.roles.some(userRole => userRole === role));
+      isAuthorized = validatedToken.roles && roles.some(role => validatedToken.roles.some(userRole => userRole === role));
     } else {
       isAuthorized = true;
     }
