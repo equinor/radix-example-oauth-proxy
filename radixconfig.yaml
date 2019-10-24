@@ -9,7 +9,7 @@ spec:
         from: master
   components:
     - name: auth-proxy
-      image: quay.io/pusher/oauth2_proxy:v4.0.0
+      image: quay.io/pusher/oauth2_proxy
       publicPort: http
       secrets:
         - OAUTH2_PROXY_CLIENT_SECRET # client secret for the UI. Application exist under Azure Active Directory -> App registration
