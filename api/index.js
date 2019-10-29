@@ -12,7 +12,8 @@ const resourceID = process.env.API_RESOURCE_ID;
 // Generic request handler
 app.get('*', (req, res) => {
   console.log(`Request received by the API: ${req.method} ${req.originalUrl}`);
-  if (!isAuthorized(req, ["Radix"])){
+  // if (!isAuthorized(req, ["Radix"])){
+  if (!isAuthorized(req, [])){
     res.sendStatus(403);
     return;
   }
