@@ -11,8 +11,7 @@ spec:
     - name: redis
       image: redis
       ports:
-        - name: redis
-          port: 8003
+        - containerPort: 6379
     - name: auth-proxy
       image: quay.io/pusher/oauth2_proxy:v4.0.0
       publicPort: http
@@ -39,7 +38,7 @@ spec:
             OAUTH2_PROXY_PASS_USER_HEADERS: "false"
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
             OAUTH2_PROXY_SESSION_STORE_TYPE: "redis"
-            OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://redis:8003"
+            OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://redis:6379"
 #            OAUTH2_PROXY_WHITELIST_DOMAINS: ".equinor.com"
 #            OAUTH2_PROXY_COOKIE_DOMAIN: ".equinor.com"
     - name: frontend
