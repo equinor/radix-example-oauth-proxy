@@ -12,8 +12,7 @@ spec:
       image: redis
       ports:
         - containerPort: 6379
-          port: 6379 
-          name: empty
+          name: redis
     - name: auth-proxy
       image: quay.io/pusher/oauth2_proxy:v4.0.0
       publicPort: http
