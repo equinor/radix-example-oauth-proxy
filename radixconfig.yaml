@@ -13,6 +13,7 @@ spec:
       ports:
         - containerPort: 6379
           port: 6379 
+          name: empty
     - name: auth-proxy
       image: quay.io/pusher/oauth2_proxy:v4.0.0
       publicPort: http
