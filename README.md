@@ -3,7 +3,7 @@
 This is a sample application that showcases how to use an authentication proxy to provide authentication for a SPA front-end that calls an protected API. The API is only accessible for all authenticated Equinor users. It is possible to further restrict this to only allow for a specific [role to have access to the API](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps)
 
 This pattern can be used to wrap existing or new components in an application with a single authentication mechanism. It is an alternative to implementing authentication directly in clients, e.g. using [MSAL](https://github.com/AzureAD/microsoft-authentication-library-for-js).
-
+ 
 ![Diagram](radix-front-proxy.png "Application diagram")
 
 The `frontend` components is only accessible through the `auth-proxy`. The `auth-proxy` ensures that the client is correctly authenticated.
