@@ -14,7 +14,7 @@ The `api` is accessible on its own url. It protects itself by validating that th
 
 Note: In Equinor AccessIT you need to have the role `Application Developer` for access `AZURE ACTIVE DIRECTORY` to be able to work with Azure AD. See [slack message](https://equinor.slack.com/archives/C04E6T3AQ/p1567530111001700) for more information.
 
-### API
+### API 
 
 To make use of this authentication pattern, you will need to:
 
