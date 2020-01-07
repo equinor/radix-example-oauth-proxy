@@ -22,8 +22,8 @@ spec:
           variables:
             OAUTH2_PROXY_PROVIDER: "oidc" # https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
             OAUTH2_PROXY_OIDC_ISSUER_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0" # the UID points to Equinors AzureAd tenant
-            OAUTH2_PROXY_CLIENT_ID: "814607e6-3d71-44a7-8476-50e8b281abbc" # client id for the UI. Application exist under Azure Active Directory -> App registration
-            OAUTH2_PROXY_SCOPE: "openid profile 30bb41bb-be29-4b10-aef7-f759141b9923/user_impersonation email" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
+            OAUTH2_PROXY_CLIENT_ID: "f639f0cf-c69a-4c2c-8dc4-31918f6c701a" # client id for the UI. Application exist under Azure Active Directory -> App registration
+            OAUTH2_PROXY_SCOPE: "openid email profile" # "openid profile 30bb41bb-be29-4b10-aef7-f759141b9923/user_impersonation email" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
             OAUTH2_PROXY_REDIRECT_URL: "https://radix-example-front-proxy.app.playground.radix.equinor.com/oauth2/callback"
             OAUTH2_PROXY_HTTP_ADDRESS: "http://:8000"
             OAUTH2_PROXY_UPSTREAMS: "http://frontend:8001" # where authenticated requests are routed to
@@ -40,7 +40,6 @@ spec:
           port: 8001
     - name: api
       src: api
-      publicPort: http
       ports:
         - name: http
           port: 8002
