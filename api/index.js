@@ -60,10 +60,10 @@ const isAuthorized = (req, roles) => {
 app.get("*", (req, res) => {
   console.log(`Request received by the API: ${req.method} ${req.originalUrl}`);
   // if (!isAuthorized(req, ["Radix"])){
-  // if (!isAuthorized(req, [])) {
-  //   res.sendStatus(403);
-  //   return;
-  // }
+  if (!isAuthorized(req, [])) {
+    res.sendStatus(403);
+    return;
+  }
 
   let output = `
     Request received by the API: ${req.method} ${req.originalUrl}
