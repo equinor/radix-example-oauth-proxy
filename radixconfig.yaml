@@ -7,6 +7,9 @@ spec:
     - name: prod
       build:
         from: master
+    - name: dev
+      build:
+        from: development
   components:
     # authenticate user using openid connect 
     # and perform oauth authorization code grant type - see https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type
@@ -21,24 +24,30 @@ spec:
       ports:
         - name: http
           port: 8000
+      variables:
+        OAUTH2_PROXY_PROVIDER: "oidc" # https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
+        OAUTH2_PROXY_OIDC_ISSUER_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0" # the UID points to Equinors AzureAd tenant
+        # OAUTH2_PROXY_SCOPE: "openid email offline_access" # Simplified scope - If api is not public, and you only want to authenticate the client
+        OAUTH2_PROXY_UPSTREAMS: "http://frontend:8001" # where authenticated requests are routed to
+        OAUTH2_PROXY_HTTP_ADDRESS: "http://:8000"
+        OAUTH2_PROXY_SESSION_STORE_TYPE: "redis" # We're using Redis for storing session info instead of cookies (cookies get too big for Edge and Safari)
+        OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379" # Where to store session info (the auth-state component)
+        OAUTH2_PROXY_COOKIE_REFRESH: "60m" # how often should the token be refreshed. Default for azure ad is currently 60m
+        OAUTH2_PROXY_EMAIL_DOMAINS: "*"
+        OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true" # should the access token be passed upstream (to the server hosting frontend component). Needed so that the API can authorize request. In simplified scope, this can be removed
+        OAUTH2_PROXY_PASS_USER_HEADERS: "false"
+        OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
       environmentConfig:
         - environment: prod
           variables:
-            OAUTH2_PROXY_PROVIDER: "oidc" # https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
-            OAUTH2_PROXY_OIDC_ISSUER_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0" # the UID points to Equinors AzureAd tenant
             OAUTH2_PROXY_CLIENT_ID: "f639f0cf-c69a-4c2c-8dc4-31918f6c701a" # client id for the UI. Application exist under Azure Active Directory -> App registration
-            OAUTH2_PROXY_SCOPE: "openid email offline_access 30bb41bb-be29-4b10-aef7-f759141b9923/user_impersonation" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
-            # OAUTH2_PROXY_SCOPE: "openid email offline_access" # Simplified scope - If api is not public, and you only want to authenticate the client
             OAUTH2_PROXY_REDIRECT_URL: "https://radix-example-oauth-proxy.app.playground.radix.equinor.com/oauth2/callback"
-            OAUTH2_PROXY_UPSTREAMS: "http://frontend:8001" # where authenticated requests are routed to
-            OAUTH2_PROXY_HTTP_ADDRESS: "http://:8000"
-            OAUTH2_PROXY_SESSION_STORE_TYPE: "redis" # We're using Redis for storing session info instead of cookies (cookies get too big for Edge and Safari)
-            OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379" # Where to store session info (the auth-state component)
-            OAUTH2_PROXY_COOKIE_REFRESH: "60m" # how often should the token be refreshed. Default for azure ad is currently 60m
-            OAUTH2_PROXY_EMAIL_DOMAINS: "*"
-            OAUTH2_PROXY_PASS_ACCESS_TOKEN: "true" # should the access token be passed upstream (to the server hosting frontend component). Needed so that the API can authorize request. In simplified scope, this can be removed
-            OAUTH2_PROXY_PASS_USER_HEADERS: "false"
-            OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
+            OAUTH2_PROXY_SCOPE: "openid email offline_access 30bb41bb-be29-4b10-aef7-f759141b9923/user_impersonation" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
+        - environment: dev
+          variables:
+            OAUTH2_PROXY_CLIENT_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # client id for the UI. Application exist under Azure Active Directory -> App registration
+            OAUTH2_PROXY_REDIRECT_URL: "https://auth-proxy-radix-example-oauth-proxy-dev.playground.radix.equinor.com/oauth2/callback"
+            OAUTH2_PROXY_SCOPE: "openid email offline_access xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/user_impersonation" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
     # stores encrypted oauth sessions (access tokens)
     - name: auth-state 
       image: redis:5-alpine
@@ -55,11 +64,10 @@ spec:
       ports:
         - name: http
           port: 8002
-      environmentConfig:  
-        - environment: prod
-          variables: # AZURE_AD_PUBLIC_KEY - public key: corresponding private key is used to sign tokens by Azure AD 
-            API_RESOURCE_ID: "30bb41bb-be29-4b10-aef7-f759141b9923" # client id for the API. Application exist under Azure Active Directory -> App registration
-            AZURE_AD_PUBLIC_KEY_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/discovery/v2.0/keys"
+      variables:
+        # AZURE_AD_PUBLIC_KEY - public key: corresponding private key is used to sign tokens by Azure AD 
+        API_RESOURCE_ID: "30bb41bb-be29-4b10-aef7-f759141b9923" # client id for the API. Application exist under Azure Active Directory -> App registration
+        AZURE_AD_PUBLIC_KEY_URL: "https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/discovery/v2.0/keys"
   dnsAppAlias:
     environment: prod
     component: auth-proxy
