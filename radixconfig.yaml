@@ -43,7 +43,7 @@ spec:
       environmentConfig:
         - environment: prod
           variables:
-            OAUTH2_PROXY_CLIENT_ID: "f639f0cf-c69a-4c2c-8dc4-31918f6c701a" # client id for the UI. Application exist under Azure Active Directory -> App registration
+            OAUTH2_PROXY_CLIENT_ID: "814607e6-3d71-44a7-8476-50e8b281abbc" # client id for the UI. Application exist under Azure Active Directory -> App registration
             OAUTH2_PROXY_REDIRECT_URL: "https://radix-example-oauth-proxy.app.playground.radix.equinor.com/oauth2/callback"
             OAUTH2_PROXY_SCOPE: "openid email offline_access 30bb41bb-be29-4b10-aef7-f759141b9923/user_impersonation" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
         - environment: dev
