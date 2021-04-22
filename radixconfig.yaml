@@ -54,7 +54,8 @@ spec:
     # stores encrypted oauth sessions (access tokens)
     - name: auth-state 
 #      image: bitnami/redis:6.2
-      src: auth-state-redis
+      dockerfileName: auth-state.Dockerfile
+#     src: auth-state-redis
       variables:
         ALLOW_EMPTY_PASSWORD: "yes"
       ports:
