@@ -24,6 +24,7 @@ spec:
       ports:
         - name: http
           port: 8000
+      environmentConfig:
         - environment: prod
           runAsNonRoot: true
       variables:
@@ -56,6 +57,7 @@ spec:
       ports:
         - name: redis
           port: 6379
+      environmentConfig:
         - environment: prod
           runAsNonRoot: true
     - name: frontend
@@ -63,6 +65,7 @@ spec:
       ports:
         - name: http
           port: 8001
+      environmentConfig:
         - environment: prod
           runAsNonRoot: true
     - name: api
@@ -70,6 +73,7 @@ spec:
       ports:
         - name: http
           port: 8002
+      environmentConfig:
         - environment: prod
           runAsNonRoot: true
       variables:
