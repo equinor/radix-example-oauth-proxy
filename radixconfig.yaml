@@ -54,6 +54,8 @@ spec:
     # stores encrypted oauth sessions (access tokens)
     - name: auth-state 
       image: bitnami/redis:6.2
+      variables:
+        ALLOW_EMPTY_PASSWORD: "yes"
       ports:
         - name: redis
           port: 6379
