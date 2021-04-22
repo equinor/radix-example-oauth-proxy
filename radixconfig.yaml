@@ -53,7 +53,8 @@ spec:
             OAUTH2_PROXY_SCOPE: "openid email offline_access xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/user_impersonation" # UID is resource client id for API. Application exist under Azure Active Directory -> App registration
     # stores encrypted oauth sessions (access tokens)
     - name: auth-state 
-      image: bitnami/redis:6.2
+#      image: bitnami/redis:6.2
+      src: auth-state-redis
       variables:
         ALLOW_EMPTY_PASSWORD: "yes"
       ports:
