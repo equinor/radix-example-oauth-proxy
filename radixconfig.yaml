@@ -9,7 +9,7 @@ spec:
         from: master
     - name: dev
       build:
-        from: development
+        from: config
   components:
     # authenticate user using openid connect 
     # and perform oauth authorization code grant type - see https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type
