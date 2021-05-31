@@ -13,7 +13,7 @@ spec:
     # to gain access token that can be used to call API
     # offline_access scope grants a refresh token: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow#successful-response-1
     - name: auth-proxy 
-      image: quay.io/oauth2-proxy/oauth2-proxy:latest
+      image: quay.io/oauth2-proxy/oauth2-proxy:7.1.2
       publicPort: http
       secrets:
         - OAUTH2_PROXY_CLIENT_SECRET # client secret for the UI. Application exist under Azure Active Directory -> App registration
