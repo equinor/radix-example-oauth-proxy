@@ -39,7 +39,7 @@ services:
       - "6379:6379"
 
   auth:
-    image: quay.io/pusher/oauth2_proxy:v6.1.1
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.3
     container_name: radix-example-front-proxy-auth_container
     environment:
       - OAUTH2_PROXY_PROVIDER=oidc # https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
