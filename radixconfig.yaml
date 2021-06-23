@@ -7,6 +7,9 @@ spec:
     - name: prod
       build:
         from: master
+    - name: test
+      build:
+        from: test
   components:
     # authenticate user using openid connect 
     # and perform oauth authorization code grant type - see https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type
@@ -22,7 +25,7 @@ spec:
         - name: http
           port: 8000
       environmentConfig:
-        - environment: prod
+        - environment: test
           runAsNonRoot: true
       variables:
         OAUTH2_PROXY_PROVIDER: "oidc" # https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
@@ -52,7 +55,7 @@ spec:
         - name: redis
           port: 6379
       environmentConfig:
-        - environment: prod
+        - environment: test
           runAsNonRoot: true
     - name: frontend
       src: frontend
@@ -60,7 +63,7 @@ spec:
         - name: http
           port: 8001
       environmentConfig:
-        - environment: prod
+        - environment: test
           runAsNonRoot: true
     - name: api
       src: api
@@ -68,7 +71,7 @@ spec:
         - name: http
           port: 8002
       environmentConfig:
-        - environment: prod
+        - environment: test
           runAsNonRoot: true
       variables:
         # AZURE_AD_PUBLIC_KEY - public key: corresponding private key is used to sign tokens by Azure AD 
