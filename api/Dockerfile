@@ -12,5 +12,5 @@ COPY . .
 
 # Start server
 EXPOSE 8002
-USER 1000
+# USER 1000
 CMD [ "node", "--max-http-header-size=64000", "index.js" ]
