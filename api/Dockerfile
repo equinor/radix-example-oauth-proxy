@@ -1,4 +1,4 @@
-FROM node:14.16.1-alpine
+FROM node:18.1-alpine3.14
 
 # Create app directory
 WORKDIR /app
@@ -12,5 +12,5 @@ COPY . .
 
 # Start server
 EXPOSE 8002
-USER 1000
+USER 1001
 CMD [ "node", "--max-http-header-size=64000", "index.js" ]
