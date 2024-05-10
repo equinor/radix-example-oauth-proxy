@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jsonwebtoken": "^9.0.1",
     "express": "^4.19.2",
-    "node-fetch": "^2.6.7"
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^2.7.0"
   }
 }
